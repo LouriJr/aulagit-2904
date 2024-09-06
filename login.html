@@ -11,41 +11,4 @@
 </body>
 </html>
 
-### Code Documentation
 
-#### Overview
-This code processes a `domainID` string, extracts the user identifier if it exists, and appends it to a query string (`testQueryString`), which is then assigned to a variable `webServiceSuffix`.
-
-#### Detailed Breakdown
-
-- **Input**: 
-  - `domainID`: A string representing the domain and user ID in the format `domain\userID`.
-  - `testQueryString`: A string used as the prefix for the final query.
-
-- **Process**:
-  1. The code first checks if the `domainID` is not null or empty, and that it contains more than two characters.
-  2. It then looks for the position of the backslash (`\`) within the `domainID`.
-  3. If a backslash is found (i.e., `endDomainInx` is greater than 0), it extracts the substring after the backslash, which represents the `userDomainID`.
-  4. If `userDomainID` is not null or empty, it concatenates the `testQueryString` with `userDomainID`, and assigns the resulting value to the `webServiceSuffix` variable.
-
-- **Variables**:
-  - `domainID`: A string that may contain both the domain and user ID.
-  - `endDomainInx`: An integer representing the index of the backslash (`\`) in the `domainID`.
-  - `userDomainID`: A string representing the extracted user ID from the `domainID`.
-  - `webServiceSuffix`: A string that stores the final concatenation of `testQueryString` and `userDomainID`.
-
-#### Example
-
-For a `domainID` like `company\john.doe` and a `testQueryString` of `http://example.com/user/`, the result stored in `webServiceSuffix` would be `http://example.com/user/john.doe`.
-
-```csharp
-if (!String.IsNullOrEmpty(domainID) && domainID.Length > 2) 
-{
-    int endDomainInx = domainID.IndexOf("\\"); 
-    string userDomainID = endDomainInx > 0 ? domainID.Substring(endDomainInx + 1) : String.Empty; 
-
-    if (!String.IsNullOrEmpty(userDomainID)) 
-    {
-        webServiceSuffix = testQueryString + userDomainID; 
-    }
-}
